@@ -628,28 +628,57 @@ footer{
 .gallery-item:hover img{
     transform:scale(1.05);
 }
-.spotify-widget{
-
-    padding:20px;
-
-    border-radius:18px;
-
-    background:rgba(10,20,40,.55);
-
-    border:1px solid rgba(0,180,255,.2);
-
-    backdrop-filter:blur(18px);
-
-    color:#d7e7ff;
+body {
+    margin: 0;
+    font-family: Verdana, sans-serif;
+    background: #050814;
+    color: #d7e7ff;
 }
 
-.spotify-widget ul{
-    list-style:none;
-    margin-top:10px;
-    padding:0;
+/* LAYOUT WRAPPERS */
+.app-layout {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
-.spotify-widget li{
-    padding:6px 0;
-    opacity:.85;
+.main-layout {
+    display: flex;
+    flex: 1;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 200px;
+    padding: 20px;
+    background: rgba(10, 20, 40, 0.75);
+    backdrop-filter: blur(14px);
+    border-right: 1px solid rgba(100, 180, 255, 0.2);
+}
+
+.sidebar-title {
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+}
+
+.sidebar-links {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.sidebar-links a {
+    color: #d7e7ff;
+    text-decoration: none;
+    opacity: 0.8;
+}
+
+.sidebar-links a:hover {
+    opacity: 1;
+}
+
+/* MAIN CONTENT AREA */
+.page-area {
+    flex: 1;
+    padding: 20px;
 }

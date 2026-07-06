@@ -1,37 +1,34 @@
-import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
-
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
-import Loader from "./components/Loader";
 
 import Home from "./pages/Home";
 import Blog from "./pages/Blog";
-import Guestbook from "./pages/Guestbook";
 import Gallery from "./pages/Gallery";
-import SpotifyCallback from "./pages/SpotifyCallback";
+import Guestbook from "./pages/Guestbook";
+
+import Navbar from "./components/Navbar";
+import Sidebar from "./components/Sidebar";
 
 export default function App() {
-
-    const [loading, setLoading] = useState(true);
-
-    if (loading) {
-        return <Loader onFinish={() => setLoading(false)} />;
-    }
-
     return (
-        <>
+        <div className="app-layout">
+
             <Navbar />
 
-            <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/blog" element={<Blog />} />
-                <Route path="/guestbook" element={<Guestbook />} />
-                <Route path="/gallery" element={<Gallery />} />
-                <Route path="/callback" element={<SpotifyCallback />} />
-            </Routes>
+            <div className="main-layout">
 
-            <Footer />
-        </>
+                <Sidebar />
+                
+                <main className="page-area">
+                    <Routes>
+                        <Route path="/" element={<Home />} />
+                        <Route path="/blog" element={<Blog />} />
+                        <Route path="/gallery" element={<Gallery />} />
+                        <Route path="/guestbook" element={<Guestbook />} />
+                    </Routes>
+                </main>
+
+            </div>
+
+        </div>
     );
 }
