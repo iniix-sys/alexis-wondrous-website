@@ -12,7 +12,7 @@ export default async function handler(req, res) {
 
         const CLIENT_ID = process.env.SPOTIFY_CLIENT_ID;
         const CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET;
-        const REDIRECT_URI = "https://yourdomain.com/callback";
+        const REDIRECT_URI = "https://alexis-wondrous-website.vercel.app/callback";
 
         console.log("ENV CHECK:", {
             CLIENT_ID: !!CLIENT_ID,
