@@ -49,5 +49,9 @@ export default async function handler(req, res) {
             error: "Spotify exchange failed",
             details: err.response?.data || err.message
         });
+        return res.json({
+            client_id: process.env.SPOTIFY_CLIENT_ID,
+            client_secret_exists: !!process.env.SPOTIFY_CLIENT_SECRET
+            });
     }
 }
