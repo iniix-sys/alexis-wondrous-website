@@ -12,7 +12,7 @@ export default function SpotifyCallback() {
         if (!code) return;
 
         // send to backend for token exchange
-        fetch("https://yourdomain.com/api/spotify/exchange", {
+        fetch("https://alexis-wondrous-website.vercel.app/api/spotify/exchange", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
