@@ -9,6 +9,7 @@ import Home from "./pages/Home";
 import Blog from "./pages/Blog";
 import Guestbook from "./pages/Guestbook";
 import Gallery from "./pages/Gallery";
+import SpotifyCallback from "./pages/SpotifyCallback";
 
 export default function App() {
 
@@ -27,6 +28,7 @@ export default function App() {
                 <Route path="/blog" element={<Blog />} />
                 <Route path="/guestbook" element={<Guestbook />} />
                 <Route path="/gallery" element={<Gallery />} />
+                <Route path="/callback" element={<SpotifyCallback />} />
             </Routes>
 
             <Footer />
