@@ -2,9 +2,9 @@ export default function Hero() {
 
     function loginWithSpotify() {
 
-        const CLIENT_ID = "YOUR_CLIENT_ID";
+        const CLIENT_ID = "8e92c7cec2014f0e867b360cfc6231ee";
 
-        const REDIRECT_URI = "https://yourdomain.com/callback";
+        const REDIRECT_URI = "https://alexis-wondrous-website.vercel.app/callback";
 
         const SCOPES = [
             "user-read-currently-playing",
