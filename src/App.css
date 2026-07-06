@@ -41,49 +41,65 @@ body{
         inset 0 1px 0 rgba(255,255,255,.08);
 
 }
+@media (max-width:768px){
+
+    .glass{
+
+        padding:18px;
+
+        border-radius:18px;
+
+    }
+
+}
 
 /* =========================
    NAVBAR
 ========================= */
 
 .navbar{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
 
-    padding: 18px 40px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
 
-    position: sticky;
-    top: 0;
+    flex-wrap:wrap;
 
-    z-index: 9999; /* 🔥 THIS FIXES THE OVERLAP */
+    gap:15px;
 
-    background: rgba(10, 20, 40, 0.75);
-    backdrop-filter: blur(16px);
+    padding:18px 24px;
 
-    border-bottom: 1px solid rgba(0, 180, 255, 0.25);
+    position:sticky;
+    top:0;
+    z-index:1000;
+
+    background:rgba(10,20,40,.75);
+
+    backdrop-filter:blur(16px);
+
 }
 
-
-/* 🔥 THIS is what fixes the “too small / cramped” issue */
 .logo{
-    font-size: 1.25rem;
-    line-height: 1;
-    white-space: nowrap;
-    margin: 0;
+
+    font-size:1.2rem;
+
 }
 
-/* IMPORTANT: gives nav room so it doesn't compress */
 .nav-links{
-    display: flex;
-    gap: 14px;
-    align-items: center;
 
-    margin: 0;
-    padding: 0;
+    display:flex;
 
-    list-style: none;
-    flex-shrink: 0;
+    flex-wrap:wrap;
+
+    justify-content:center;
+
+    gap:8px;
+
+    list-style:none;
+
+    margin:0;
+    padding:0;
+
 }
 
 /* actual clickable area */
@@ -115,21 +131,37 @@ body{
 ========================= */
 
 .hero{
-
-    text-align:center;
-
-    padding:110px 20px;
-
+    padding:100px 20px;
 }
 
 .hero h1{
     font-size:4rem;
-    text-shadow: 0 0 25px rgba(0,180,255,.3);
 }
 
 .hero p{
     margin-top:15px;
     opacity:.85;
+}
+@media (max-width:768px){
+
+    .hero{
+
+        padding:70px 20px;
+
+    }
+
+    .hero h1{
+
+        font-size:2.5rem;
+
+    }
+
+    .hero p{
+
+        font-size:1rem;
+
+    }
+
 }
 
 /* =========================
@@ -138,23 +170,9 @@ body{
 
 button{
 
-    margin-top:25px;
+    min-height:44px;
 
-    padding:12px 30px;
-
-    border-radius:999px;
-
-    border:1px solid rgba(0,180,255,.4);
-
-    cursor:pointer;
-
-    color:#d7e7ff;
-
-    background: linear-gradient(#1a3a5a, #0b2a3a);
-
-    box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.1),
-        0 0 20px rgba(0,180,255,.2);
+    padding:12px 20px;
 
 }
 
@@ -163,18 +181,31 @@ button{
 ========================= */
 
 .layout{
-
-    width:min(1200px,90%);
-
+    width:min(1200px,95%);
     margin:auto;
 
     display:grid;
-
     grid-template-columns:260px 1fr;
-
     gap:25px;
 
-    padding-bottom:80px;
+    padding:30px 0 80px;
+}
+
+/* Tablet */
+
+@media (max-width: 900px){
+
+    .layout{
+        grid-template-columns:1fr;
+    }
+
+    .sidebar{
+        order:2;
+    }
+
+    .content{
+        order:1;
+    }
 
 }
 
@@ -249,15 +280,26 @@ textarea{
 }
 
 .blog-window{
-    width: min(1000px, 100%);
-    padding: 30px;
 
-    border-radius: 24px;
+    width:min(1000px,100%);
 
-    background: rgba(10, 20, 40, 0.55);
-    backdrop-filter: blur(18px);
+    margin:auto;
 
-    border: 1px solid rgba(0, 180, 255, 0.2);
+}
+@media (max-width:768px){
+
+    .blog-app{
+
+        padding:80px 12px 30px;
+
+    }
+
+    .blog-window{
+
+        padding:18px;
+
+    }
+
 }
 
 .blog-create{
@@ -267,14 +309,13 @@ textarea{
     margin-bottom: 20px;
 }
 
-input, textarea{
-    padding: 10px;
-    border-radius: 10px;
+input,
+textarea{
 
-    border: 1px solid rgba(0,180,255,.3);
+    width:100%;
 
-    background: rgba(10,20,40,.4);
-    color: #d7e7ff;
+    font-size:1rem;
+
 }
 
 .thread{
@@ -291,4 +332,32 @@ input, textarea{
 .thread:hover{
     transform: translateY(-2px);
     box-shadow: 0 0 18px rgba(0, 180, 255, 0.2);
+}
+@media (max-width:768px){
+
+    .layout{
+        grid-template-columns:1fr;
+    }
+
+    .navbar{
+        justify-content:center;
+        text-align:center;
+    }
+
+    .nav-links{
+        justify-content:center;
+    }
+
+    .hero h1{
+        font-size:2.5rem;
+    }
+
+    .glass{
+        padding:18px;
+    }
+
+    .blog-window{
+        padding:18px;
+    }
+
 }
