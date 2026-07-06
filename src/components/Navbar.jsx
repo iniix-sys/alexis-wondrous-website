@@ -5,7 +5,7 @@ export default function Navbar() {
     return (
         <nav className="navbar">
 
-            <h1 className="logo">🌙 LOREM SYSTEM INTERFACE</h1>
+            <h1 className="logo">🌙 ALEXIS' WONDROUS WEBSITE</h1>
 
             <ul className="nav-links">
 

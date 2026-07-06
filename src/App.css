@@ -1,5 +1,5 @@
 /* =========================
-   BASE RESET
+   RESET
 ========================= */
 
 *{
@@ -10,7 +10,6 @@
 
 body{
     font-family: Verdana, sans-serif;
-
     min-height:100vh;
 
     color:#d7e7ff;
@@ -29,13 +28,11 @@ body{
 ========================= */
 
 .navbar{
-
     display:flex;
     justify-content:space-between;
     align-items:center;
 
     gap:15px;
-
     padding:18px 24px;
 
     position:sticky;
@@ -52,37 +49,27 @@ body{
 
 .logo{
     font-size:1.2rem;
-    line-height:1;
     white-space:nowrap;
 }
 
-/* NAV LINKS */
-
 .nav-links{
-
     display:flex;
     flex-wrap:wrap;
-
     gap:8px;
 
     list-style:none;
-
     margin:0;
     padding:0;
 }
 
 .nav-links a{
-
     display:block;
-
     padding:10px 14px;
 
     border-radius:10px;
 
     color:inherit;
     text-decoration:none;
-
-    font-size:0.95rem;
 
     transition:0.2s;
 }
@@ -98,9 +85,7 @@ body{
 ========================= */
 
 .hero{
-
     text-align:center;
-
     padding:100px 20px;
 }
 
@@ -115,32 +100,10 @@ body{
 }
 
 /* =========================
-   GLASS UI
-========================= */
-
-.glass{
-
-    background:rgba(10,20,40,.55);
-
-    border:1px solid rgba(255,255,255,.15);
-
-    border-radius:22px;
-
-    padding:25px;
-
-    backdrop-filter:blur(18px);
-
-    box-shadow:
-        0 0 30px rgba(0,180,255,.15),
-        inset 0 1px 0 rgba(255,255,255,.08);
-}
-
-/* =========================
    LAYOUT
 ========================= */
 
 .layout{
-
     width:min(1200px,95%);
     margin:auto;
 
@@ -162,63 +125,113 @@ body{
 }
 
 /* =========================
-   BUTTONS
+   GLASS PANEL
 ========================= */
 
-button{
+.glass{
+    background:rgba(10,20,40,.55);
+    border:1px solid rgba(255,255,255,.12);
 
-    margin-top:25px;
+    border-radius:22px;
+    padding:25px;
 
-    padding:12px 20px;
-
-    border-radius:999px;
-
-    border:1px solid rgba(0,180,255,.4);
-
-    cursor:pointer;
-
-    color:#d7e7ff;
-
-    background:linear-gradient(#1a3a5a, #0b2a3a);
+    backdrop-filter:blur(18px);
 
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.1),
-        0 0 20px rgba(0,180,255,.2);
-
-    min-height:44px;
+        0 0 30px rgba(0,180,255,.15),
+        inset 0 1px 0 rgba(255,255,255,.06);
 }
 
 /* =========================
-   INPUTS
+   BUTTONS (AERO STYLE)
+========================= */
+
+button{
+    padding:12px 18px;
+
+    border-radius:999px;
+
+    border:1px solid rgba(0,180,255,.35);
+
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(40,90,140,.9),
+            rgba(10,40,70,.9)
+        );
+
+    color:#d7e7ff;
+
+    font-weight:500;
+
+    cursor:pointer;
+
+    min-height:44px;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.15),
+        0 0 18px rgba(0,180,255,.15);
+
+    transition:0.2s ease;
+}
+
+button:hover{
+    transform:translateY(-2px);
+    box-shadow:0 0 25px rgba(0,180,255,.25);
+}
+
+button:active{
+    transform:scale(0.98);
+}
+
+/* =========================
+   INPUTS (AERO GLASS)
 ========================= */
 
 input,
 textarea{
-
     width:100%;
 
-    padding:10px;
+    padding:12px 14px;
 
-    border-radius:10px;
+    border-radius:12px;
 
-    border:1px solid rgba(0,180,255,.3);
+    border:1px solid rgba(0,180,255,.25);
 
-    background:rgba(10,20,40,.4);
+    background:rgba(10,20,40,.35);
 
     color:#d7e7ff;
 
+    font-size:1rem;
+
     outline:none;
 
-    font-size:1rem;
+    backdrop-filter:blur(10px);
+
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.06);
+
+    transition:0.2s ease;
+}
+
+input:focus,
+textarea:focus{
+    border-color:rgba(0,180,255,.6);
+
+    box-shadow:
+        0 0 0 3px rgba(0,180,255,.12),
+        0 0 18px rgba(0,180,255,.25);
+
+    background:rgba(10,20,40,.5);
 }
 
 textarea{
-    min-height:90px;
+    min-height:110px;
     resize:vertical;
 }
 
 /* =========================
-   BLOG
+   BLOG SYSTEM
 ========================= */
 
 .blog-app{
@@ -232,15 +245,12 @@ textarea{
 }
 
 .blog-window{
-
     width:min(1000px,100%);
-
     padding:30px;
 
     border-radius:24px;
 
     background:rgba(10,20,40,.55);
-
     backdrop-filter:blur(18px);
 
     border:1px solid rgba(0,180,255,.2);
@@ -249,28 +259,42 @@ textarea{
 .blog-create{
     display:flex;
     flex-direction:column;
-    gap:10px;
-    margin-bottom:20px;
+    gap:12px;
+
+    padding:18px;
+
+    border-radius:18px;
+
+    background:rgba(10,20,40,.25);
+
+    border:1px solid rgba(0,180,255,.12);
+
+    backdrop-filter:blur(14px);
 }
 
 .thread{
-    padding:12px;
+    padding:14px;
     margin:10px 0;
 
-    border-radius:12px;
+    border-radius:14px;
 
     cursor:pointer;
 
-    background:rgba(10,20,40,.35);
+    background:rgba(10,20,40,.25);
 
-    border:1px solid rgba(0,180,255,.15);
+    border:1px solid rgba(0,180,255,.12);
 
-    transition:0.2s;
+    transition:0.2s ease;
 }
 
 .thread:hover{
     transform:translateY(-2px);
-    box-shadow:0 0 18px rgba(0,180,255,.2);
+
+    background:rgba(10,20,40,.35);
+
+    border-color:rgba(0,180,255,.25);
+
+    box-shadow:0 0 18px rgba(0,180,255,.18);
 }
 
 /* =========================
@@ -284,18 +308,15 @@ footer{
 }
 
 /* =========================
-   RESPONSIVE (MOBILE FIX)
+   RESPONSIVE
 ========================= */
 
 @media (max-width:768px){
 
-    /* layout becomes single column */
     .layout{
         grid-template-columns:1fr;
-        padding:20px 0 60px;
     }
 
-    /* hero scaling */
     .hero{
         padding:70px 15px;
     }
@@ -304,17 +325,11 @@ footer{
         font-size:2.5rem;
     }
 
-    .hero p{
-        font-size:1rem;
-    }
-
-    /* glass spacing */
     .glass{
         padding:18px;
         border-radius:18px;
     }
 
-    /* blog spacing */
     .blog-app{
         padding:80px 12px 30px;
     }
@@ -323,13 +338,55 @@ footer{
         padding:18px;
     }
 
-    /* navbar centered + wraps nicely */
     .navbar{
         justify-content:center;
-        text-align:center;
     }
 
     .nav-links{
         justify-content:center;
     }
+}
+.hero{
+
+    text-align: justify;
+
+    max-width: 800px;
+    margin: 0 auto;
+
+    padding: 100px 20px;
+}
+
+/* optional: fix last line weird spacing */
+.hero p{
+    text-align: justify;
+    text-justify: inter-word;
+
+    opacity: 0.9;
+}
+
+.hero-buttons{
+    display:flex !important;
+    justify-content:center !important;
+    align-items:center;
+
+    gap:16px !important;
+
+    width:100%;
+    margin-top:20px;
+}
+
+.hero-buttons button{
+    transition:0.2s ease;
+}
+
+.hero-buttons button:active{
+    transform:scale(0.97);
+}
+
+.hero-buttons button:hover{
+    transform: translateY(-2px);
+}
+.hero h1{
+    text-align:center;
+    text-shadow: 0 0 25px rgba(0,180,255,.35);
 }
