@@ -867,4 +867,150 @@ body {
         padding: 15px;
     }
 
+}/* =========================
+   MUSIC WALL
+========================= */
+
+.music-wall {
+
+    padding: 40px 20px;
+
+}
+
+
+.music-wall h1 {
+
+    text-align:center;
+
+    font-size:3rem;
+
+    text-shadow:
+        0 0 20px rgba(0,180,255,.4);
+
+}
+
+
+.music-status {
+
+    text-align:center;
+
+    opacity:.8;
+
+    margin:15px;
+
+    font-family:monospace;
+
+}
+
+
+/* GRID */
+
+.music-grid {
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(220px,1fr)
+        );
+
+    gap:20px;
+
+    max-width:1100px;
+
+    margin:auto;
+
+}
+
+
+/* CARD */
+
+.music-card {
+
+    padding:15px;
+
+    border-radius:20px;
+
+
+    background:
+        rgba(10,20,40,.55);
+
+
+    backdrop-filter:
+        blur(16px);
+
+
+    border:
+        1px solid rgba(0,180,255,.2);
+
+
+    box-shadow:
+        0 0 20px rgba(0,180,255,.12);
+
+
+    transition:.2s ease;
+
+}
+
+
+.music-card:hover {
+
+    transform:
+        translateY(-5px);
+
+
+    box-shadow:
+        0 0 30px rgba(0,180,255,.3);
+
+}
+
+
+/* ALBUM ART */
+
+.music-card img {
+
+    width:100%;
+
+    aspect-ratio:1;
+
+    object-fit:cover;
+
+
+    border-radius:14px;
+
+
+    display:block;
+
+}
+
+
+/* TEXT */
+
+.music-info {
+
+    padding-top:12px;
+
+}
+
+
+.music-info h3 {
+
+    font-size:1rem;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+
+}
+
+
+.music-info p {
+
+    opacity:.7;
+
+    margin-top:5px;
+
 }

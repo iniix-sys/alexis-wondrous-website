@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 
-
 export default function Music() {
 
     const [tracks, setTracks] = useState([]);
@@ -21,26 +20,26 @@ export default function Music() {
     }, []);
 
 
+
     return (
 
         <div className="music-wall">
 
             <h1>
-                🎵 MUSIC WALL
+                MUSIC WALL
             </h1>
-
 
             <p className="music-status">
                 AUDIO SUBSYSTEM: ONLINE
             </p>
 
 
-            <div className="track-list">
+            <div className="music-grid">
 
                 {tracks.map((track, index) => (
 
                     <div
-                        className="track"
+                        className="music-card"
                         key={index}
                     >
 
@@ -48,11 +47,11 @@ export default function Music() {
                             src={
                                 track.image[2]["#text"]
                             }
-                            alt=""
+                            alt="album cover"
                         />
 
 
-                        <div>
+                        <div className="music-info">
 
                             <h3>
                                 {track.name}
@@ -63,6 +62,7 @@ export default function Music() {
                             </p>
 
                         </div>
+
 
                     </div>
 
