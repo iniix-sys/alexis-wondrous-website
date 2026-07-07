@@ -12,8 +12,8 @@ export default function Navbar() {
                 <li><Link to="/">HOME</Link></li>
                 <li><Link to="/blog">BLOG</Link></li>
                 <li><Link to="/gallery">GALLERY</Link></li>
-                <li><Link to="/music">MUSIC WALL</Link></li>
-                <li><Link to="/guestbook">GUESTBOOK</Link></li>
+                <li><Link to="/music">MUSIC HALL</Link></li>
+                <li><Link to="/guestbook">THE WALL</Link></li>
 
             </ul>
 

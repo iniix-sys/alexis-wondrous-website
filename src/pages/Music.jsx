@@ -26,7 +26,7 @@ export default function Music() {
         <div className="music-wall">
 
             <h1>
-                MUSIC WALL
+                MUSIC HALL
             </h1>
 
             <p className="music-status">
