@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 
 import Home from "./pages/Home";
@@ -9,6 +10,9 @@ import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 
 export default function App() {
+
+    const [sidebarOpen, setSidebarOpen] = useState(true);
+
     return (
         <div className="app-layout">
 
@@ -16,8 +20,11 @@ export default function App() {
 
             <div className="main-layout">
 
-                <Sidebar />
-                
+                <Sidebar
+                    open={sidebarOpen}
+                    toggleSidebar={() => setSidebarOpen(!sidebarOpen)}
+                />
+
                 <main className="page-area">
                     <Routes>
                         <Route path="/" element={<Home />} />
