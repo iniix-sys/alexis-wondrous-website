@@ -9,7 +9,7 @@ import Guestbook from "./pages/Guestbook";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import Loader from "./components/Loader";
-
+import Music from "./pages/Music";
 
 export default function App() {
 
@@ -45,6 +45,7 @@ export default function App() {
                         <Route path="/gallery" element={<Gallery />} />
 
                         <Route path="/guestbook" element={<Guestbook />} />
+                        <Route path="/music" element={<Music />} />
 
                     </Routes>
 
