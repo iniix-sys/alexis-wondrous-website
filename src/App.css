@@ -683,227 +683,188 @@ body {
     padding: 20px;
 }
 /* =========================
-   EXTRA MOBILE OPTIMIZATION
+   MOBILE RESPONSIVE FIXES
 ========================= */
 
-@media (max-width:768px){
+@media (max-width: 768px) {
 
-    html, body{
-        width:100%;
-        overflow-x:hidden;
-    }
-
-    /* NAVBAR */
-
-    .navbar{
-        flex-direction:column;
-        align-items:center;
-        padding:15px;
-        gap:10px;
-    }
-
-    .logo{
-        font-size:1rem;
-    }
-
-    .nav-links{
-        width:100%;
-        flex-direction:column;
-        align-items:stretch;
-        gap:6px;
-    }
-
-    .nav-links a{
-        text-align:center;
-        padding:12px;
-        background:rgba(10,20,40,.25);
+    /* Stack sidebar above content */
+    .main-layout {
+        flex-direction: column;
     }
 
 
-    /* HERO */
+    /* Sidebar becomes a top panel */
+    .sidebar {
 
-    .hero{
-        padding:50px 15px;
-        text-align:center;
-    }
+        width: 100%;
 
-    .hero h1{
-        font-size:clamp(2rem, 10vw, 3rem);
-        line-height:1.1;
-    }
+        height: auto;
 
-    .hero p{
-        text-align:center;
-        font-size:.95rem;
-    }
+        border-right: none;
 
-    .hero-buttons{
-        flex-direction:column;
-        width:100%;
-    }
+        border-bottom:
+            1px solid rgba(0,180,255,.2);
 
-    .hero-buttons button{
-        width:100%;
+        padding: 15px;
+
     }
 
 
-    /* MAIN GRID */
+    /* Keep system text readable */
+    .side-text {
 
-    .layout{
-        width:100%;
-        padding:20px 12px 50px;
-        grid-template-columns:1fr;
-        gap:15px;
+        flex-direction: row;
+
+        justify-content: space-between;
+
+        gap: 10px;
+
+        flex-wrap: wrap;
+
+        font-size: .7rem;
+
     }
 
 
-    /* SIDEBAR */
+    /* Main content spacing */
+    .page-area {
 
-    .sidebar{
-        width:100%;
-        padding:15px;
-        border-right:none;
-        border-bottom:1px solid rgba(100,180,255,.2);
-    }
+        padding: 15px;
 
-    .sidebar-links{
-        flex-direction:row;
-        flex-wrap:wrap;
-        justify-content:center;
     }
 
 
-    /* GLASS PANELS */
+    /* Navbar */
+    .navbar {
 
-    .glass{
-        padding:15px;
-        border-radius:16px;
+        flex-direction: column;
+
+        align-items: center;
+
+        text-align: center;
+
+        padding: 15px;
+
     }
 
 
-    /* BLOG */
+    .logo {
 
-    .blog-app{
-        padding:60px 10px 20px;
-    }
+        font-size: 1rem;
 
-    .blog-window{
-        padding:15px;
-        border-radius:18px;
-    }
-
-    .thread{
-        padding:12px;
     }
 
 
-    /* INPUTS */
+    /* Hero */
+    .hero {
 
-    input,
-    textarea{
-        font-size:16px;
+        padding: 50px 15px;
+
     }
 
 
-    /* GUESTBOOK */
+    .hero h1 {
 
-    .guestbook-page{
-        padding:60px 12px;
-    }
+        font-size: 2.4rem;
 
-    .guestbook-title{
-        font-size:clamp(2rem,9vw,3rem);
-    }
-
-    .guestbook-input{
-        flex-direction:column;
-        align-items:center;
-    }
-
-    .guestbook-input input,
-    .guestbook-input button{
-        width:100%;
-        max-width:none;
     }
 
 
-    /* BRICK WALL */
+    .hero p {
 
-    .brick-wall{
-        grid-template-columns:repeat(2,1fr);
-        gap:8px;
-    }
+        text-align: left;
 
-    .brick{
-        padding:15px 8px;
-        font-size:.95rem;
+        line-height: 1.6;
+
     }
 
 
-    /* GALLERY */
+    /* Buttons */
+    .hero-buttons {
 
-    .gallery-page{
-        padding:60px 12px;
-    }
+        flex-direction: column;
 
-    .gallery-title{
-        font-size:clamp(2rem,9vw,3rem);
-    }
+        align-items: center;
 
-    .gallery-input{
-        flex-direction:column;
-        align-items:center;
-    }
+        gap: 12px;
 
-    .gallery-input input,
-    .gallery-input button{
-        width:100%;
-        max-width:none;
     }
 
 
-    .gallery-grid{
-        grid-template-columns:repeat(2,1fr);
-        gap:10px;
-    }
+    .hero-buttons button {
 
-    .gallery-item{
-        border-radius:12px;
-    }
+        width: 160px;
 
-    .gallery-item img{
-        height:160px;
     }
 
 
-    /* FOOTER */
+    /* Glass panels */
+    .glass {
 
-    footer{
-        padding:25px 15px;
-        font-size:.85rem;
+        padding: 18px;
+
+        border-radius: 16px;
+
+    }
+
+
+    /* Blog */
+    .blog-window {
+
+        padding: 18px;
+
+    }
+
+
+    /* Gallery */
+    .gallery-grid {
+
+        grid-template-columns:
+            repeat(
+                auto-fit,
+                minmax(150px, 1fr)
+            );
+
+    }
+
+
+    .gallery-item img {
+
+        height: 160px;
+
+    }
+
+
+    /* Guestbook bricks */
+    .brick-wall {
+
+        grid-template-columns:
+            repeat(
+                auto-fit,
+                minmax(120px,1fr)
+            );
+
     }
 
 }
+/* =========================
+   HIDE SIDEBAR ON MOBILE
+========================= */
 
+@media (max-width: 768px) {
 
-/* SMALL PHONES */
-
-@media (max-width:420px){
-
-    .gallery-grid{
-        grid-template-columns:1fr;
+    .sidebar {
+        display: none;
     }
 
-    .brick-wall{
-        grid-template-columns:1fr;
+    .main-layout {
+        display: block;
     }
 
-    button{
-        width:100%;
-    }
-
-    .glass{
-        border-radius:14px;
+    .page-area {
+        width: 100%;
+        padding: 15px;
     }
 
 }
