@@ -10,7 +10,7 @@ export default async function handler(req, res) {
         `&user=${username}` +
         `&api_key=${apiKey}` +
         `&format=json` +
-        `&limit=10`;
+        `&limit=12`;
 
 
     try {
