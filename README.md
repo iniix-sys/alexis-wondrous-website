@@ -1,16 +1,93 @@
-# React + Vite
+# 🌙 Alexis' Wondrous Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A personal website built as a small corner of the internet to share projects, photography, music, and random creations.
 
-Currently, two official plugins are available:
+## ✨ Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+* 📝 **Blog**
 
-## React Compiler
+  * Forum-style threads and replies
+  * Visitors can create discussions and interact
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+* 📷 **Gallery**
 
-## Expanding the Oxlint configuration
+  * Personal photography collection
+  * Images managed through the backend
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+* 🎵 **Music Wall**
+
+  * Displays current and recent listening activity using the Last.fm API
+
+* 🧱 **Guestbook**
+
+  * Visitors can leave their name on a virtual brick wall
+
+* 🌐 **Network**
+
+  * A collection of links to my other websites and profiles
+
+## 🛠️ Built With
+
+* React
+* React Router
+* Supabase
+* Vercel
+* Last.fm API
+* CSS (custom glass / aero inspired design)
+
+## 🚀 Deployment
+
+This site is deployed using Vercel.
+
+## 📁 Project Structure
+
+```
+src/
+├── components/
+│   ├── Navbar
+│   ├── Sidebar
+│   └── Loader
+│
+├── pages/
+│   ├── Home
+│   ├── Blog
+│   ├── Gallery
+│   ├── Guestbook
+│   ├── Music
+│   └── Links
+│
+└── App.jsx
+```
+
+## 💻 Local Development
+
+Clone the repository:
+
+```bash
+git clone https://github.com/iniix-sys/alexis-wondrous-website.git
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Run the development server:
+
+```bash
+npm run dev
+```
+
+## 📡 Environment Variables
+
+The project uses environment variables for external services:
+
+```
+LASTFM_API_KEY=
+LASTFM_USERNAME=
+```
+
+## 📜 License
+
+This project is personal work. Feel free to look around and use it as inspiration.
