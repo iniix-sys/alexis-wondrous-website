@@ -14,7 +14,7 @@ export default function Navbar() {
                 <li><Link to="/gallery">GALLERY</Link></li>
                 <li><Link to="/music">MUSIC HALL</Link></li>
                 <li><Link to="/guestbook">THE WALL</Link></li>
-
+                <li><Link to="/sites">OTHER SITES</Link></li>
             </ul>
 
         </nav>

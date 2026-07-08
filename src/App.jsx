@@ -10,7 +10,7 @@ import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import Loader from "./components/Loader";
 import Music from "./pages/Music";
-
+import Links from "./pages/Links"
 export default function App() {
 
     const [loading, setLoading] = useState(true);
@@ -46,6 +46,7 @@ export default function App() {
 
                         <Route path="/guestbook" element={<Guestbook />} />
                         <Route path="/music" element={<Music />} />
+                        <Route path="/sites" element={<Links />} />
 
                     </Routes>
 
