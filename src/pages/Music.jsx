@@ -1,6 +1,17 @@
 import { useEffect, useState } from "react";
 import { useLiveUpdate } from "../hooks/useLiveUpdate";
 
+function getTrackUrl(track) {
+    if (track?.url) return track.url;
+
+    const artist = track?.artist?.["#text"] || "";
+    const name = track?.name || "";
+
+    if (!artist && !name) return null;
+
+    return `https://www.last.fm/search?q=${encodeURIComponent(`${artist} ${name}`)}`;
+}
+
 export default function Music() {
 
     const [tracks, setTracks] = useState([]);
@@ -81,9 +92,12 @@ export default function Music() {
             <div className="music-grid">
 
                 {currentTrack && !currentTrack.isPlaying && (
-                    <div
+                    <a
                         className="music-card is-paused"
                         key="current"
+                        href={getTrackUrl(currentTrack)}
+                        target="_blank"
+                        rel="noopener noreferrer"
                     >
 
                         <div className="now-playing-indicator">
@@ -110,7 +124,7 @@ export default function Music() {
 
                         </div>
 
-                    </div>
+                    </a>
                 )}
 
                 {tracks.map((track, index) => {
@@ -126,9 +140,12 @@ export default function Music() {
 
                     return (
 
-                    <div
+                    <a
                         className={`music-card ${isNowPlaying ? "now-playing is-playing" : ""}`}
                         key={index}
+                        href={getTrackUrl(track)}
+                        target="_blank"
+                        rel="noopener noreferrer"
                     >
 
                         {isNowPlaying && (
@@ -157,7 +174,7 @@ export default function Music() {
 
                         </div>
 
-                    </div>
+                    </a>
 
                     );
 

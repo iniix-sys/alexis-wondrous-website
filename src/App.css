@@ -517,35 +517,114 @@ footer{
 
     .layout{
         grid-template-columns:1fr;
+        width:min(100%, calc(100% - 24px));
+        padding:20px 0 50px;
     }
 
     .hero{
-        padding:70px 15px;
+        padding:70px 15px 50px;
     }
 
     .hero h1{
-        font-size:2.5rem;
+        font-size:2.25rem;
+        line-height:1.1;
     }
 
     .glass{
-        padding:18px;
-        border-radius:18px;
+        padding:16px;
+        border-radius:16px;
     }
 
     .blog-app{
-        padding:80px 12px 30px;
+        padding:70px 12px 30px;
     }
 
     .blog-window{
-        padding:18px;
+        padding:16px;
     }
 
     .navbar{
         justify-content:center;
+        padding:14px 16px;
+        gap:10px;
     }
 
     .nav-links{
         justify-content:center;
+        gap:6px;
+    }
+
+    .nav-links a{
+        padding:8px 10px;
+        font-size:0.9rem;
+    }
+
+    .guestbook-page,
+    .gallery-page,
+    .links-page,
+    .music-wall{
+        padding:70px 12px 30px;
+    }
+
+    .guestbook-title,
+    .gallery-title,
+    .music-wall h1{
+        font-size:2.2rem;
+    }
+
+    .guestbook-input,
+    .gallery-input{
+        flex-direction:column;
+        align-items:stretch;
+    }
+
+    .guestbook-input input,
+    .gallery-input input{
+        max-width:none;
+    }
+
+    .brick-wall{
+        grid-template-columns:repeat(auto-fit, minmax(110px, 1fr));
+        gap:8px;
+    }
+
+    .brick{
+        min-height:72px;
+        font-size:2rem;
+        padding:8px;
+    }
+
+    .gallery-grid{
+        grid-template-columns:repeat(auto-fit, minmax(140px, 1fr));
+        gap:12px;
+    }
+
+    .gallery-item img{
+        height:140px;
+    }
+
+    .music-grid{
+        grid-template-columns:repeat(auto-fit, minmax(160px, 1fr));
+        gap:14px;
+    }
+
+    .links-grid{
+        grid-template-columns:1fr;
+        gap:14px;
+    }
+
+    .link-card{
+        padding:18px;
+    }
+
+    .page-area{
+        padding:12px;
+    }
+
+    .sidebar{
+        padding:16px;
+        border-radius:16px;
+        margin:0 12px 10px;
     }
 }
 
@@ -729,6 +808,8 @@ footer{
     backdrop-filter:blur(12px);
 
     transition:0.2s ease;
+
+    cursor:pointer;
 }
 
 .gallery-item img{
@@ -743,21 +824,93 @@ footer{
     transition:0.3s ease;
 }
 
-.gallery-item:hover{
+.gallery-item:hover,
+.gallery-item:focus-visible{
 
     transform:translateY(-4px) scale(1.02);
 
     box-shadow:0 0 25px rgba(0,180,255,.25);
+
+    outline:none;
 }
 
-.gallery-item:hover img{
+.gallery-item:hover img,
+.gallery-item:focus-visible img{
     transform:scale(1.05);
+}
+
+.image-modal{
+    position:fixed;
+    inset:0;
+    z-index:99999;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    background:rgba(2,4,10,.84);
+    backdrop-filter:blur(8px);
+}
+
+.image-modal__content{
+    position:relative;
+    width:min(100%, 980px);
+    max-height:90vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:16px;
+    border-radius:24px;
+    background:rgba(5,10,22,.94);
+    border:1px solid rgba(255,255,255,.24);
+    box-shadow:0 20px 60px rgba(0,0,0,.45);
+}
+
+.image-modal__content img{
+    width:100%;
+    max-height:80vh;
+    object-fit:contain;
+    border-radius:16px;
+    display:block;
+}
+
+.image-modal__close{
+    position:absolute;
+    top:10px;
+    right:10px;
+    width:40px;
+    height:40px;
+    border:0;
+    border-radius:999px;
+    background:rgba(255,255,255,.12);
+    color:#fff;
+    font-size:1.4rem;
+    cursor:pointer;
+}
+
+@media (max-width:768px){
+    .image-modal{
+        padding:10px;
+    }
+
+    .image-modal__content{
+        padding:10px;
+        border-radius:16px;
+    }
+
+    .image-modal__close{
+        width:36px;
+        height:36px;
+        top:8px;
+        right:8px;
+    }
 }
 body {
     margin: 0;
     font-family: Verdana, sans-serif;
     background: #050814;
     color: #d7e7ff;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
 }
 
 /* LAYOUT WRAPPERS */
@@ -813,30 +966,19 @@ body {
 
 @media (max-width: 768px) {
 
-    /* Stack sidebar above content */
     .main-layout {
         flex-direction: column;
     }
 
-
-    /* Sidebar becomes a top panel */
     .sidebar {
-
         width: 100%;
-
         height: auto;
-
         border-right: none;
-
-        border-bottom:
-            1px solid rgba(0,180,255,.2);
-
+        border-bottom: 1px solid rgba(0,180,255,.2);
         padding: 15px;
-
+        margin: 0 0 10px;
     }
 
-
-    /* Keep system text readable */
     .side-text {
 
         flex-direction: row;
@@ -980,57 +1122,31 @@ body {
 @media (max-width:768px){
 
     .main-layout {
-
         display:flex;
-
         flex-direction:column;
-
     }
-
 
     .page-area {
-
         order:1;
-
         width:100%;
-
     }
-
 
     .sidebar {
-
         order:2;
-
         width:100%;
-
         height:auto;
-
-        min-height:180px;
-
-        margin-top:30px;
-
-
+        min-height:auto;
+        margin-top:10px;
         border-right:none;
-
-        border-top:
-            1px solid rgba(0,180,255,.2);
-
-
-        padding:20px;
-
+        border-top:1px solid rgba(0,180,255,.2);
+        padding:16px;
     }
 
-
     .side-text {
-
         display:flex;
-
         flex-direction:column;
-
         justify-content:center;
-
         gap:12px;
-
     }
 
 }
@@ -1127,6 +1243,9 @@ body {
 
 .music-card {
 
+    display:block;
+    color:inherit;
+    text-decoration:none;
     padding:15px;
 
     border-radius:20px;
