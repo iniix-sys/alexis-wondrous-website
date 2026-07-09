@@ -80,25 +80,16 @@ export default function Music() {
 
             <div className="music-grid">
 
-                {currentTrack && (
+                {currentTrack && !currentTrack.isPlaying && (
                     <div
-                        className={`music-card ${currentTrack.isPlaying ? "now-playing is-playing" : "is-paused"}`}
+                        className="music-card is-paused"
                         key="current"
                     >
 
-                        {currentTrack.isPlaying && (
-                            <div className="now-playing-indicator">
-                                <span className="pulse active"></span>
-                                PLAYING
-                            </div>
-                        )}
-
-                        {!currentTrack.isPlaying && (
-                            <div className="now-playing-indicator">
-                                <span className="pulse"></span>
-                                PAUSED
-                            </div>
-                        )}
+                        <div className="now-playing-indicator">
+                            <span className="pulse"></span>
+                            PAUSED
+                        </div>
 
                         <img
                             src={
@@ -131,12 +122,21 @@ export default function Music() {
                         return null;
                     }
 
+                    const isNowPlaying = track["@attr"]?.nowplaying === "true";
+
                     return (
 
                     <div
-                        className="music-card"
+                        className={`music-card ${isNowPlaying ? "now-playing is-playing" : ""}`}
                         key={index}
                     >
+
+                        {isNowPlaying && (
+                            <div className="now-playing-indicator">
+                                <span className="pulse active"></span>
+                                PLAYING
+                            </div>
+                        )}
 
                         <img
                             src={
