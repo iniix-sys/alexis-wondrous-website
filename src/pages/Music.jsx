@@ -1,5 +1,8 @@
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useLiveUpdate } from "../hooks/useLiveUpdate";
+
+const FAVORITE_STORAGE_KEY = "alexis-favorites-admin";
+const ADMIN_KEY = import.meta.env.VITE_FAVORITES_ADMIN_KEY || "alexis-favorites-2026";
 
 function getTrackUrl(track) {
     if (track?.url) return track.url;
@@ -17,7 +20,7 @@ export default function Music() {
     const [tracks, setTracks] = useState([]);
     const [scrobbleCount, setScrobbleCount] = useState(0);
     const [currentTrack, setCurrentTrack] = useState(null);
-    const lastStateRef = useRef({ tracks: [], currentTrack: null, scrobbleCount: 0 });
+    const [favoriteTracks, setFavoriteTracks] = useState([]);
 
     const fetchMusicData = async () => {
 
@@ -33,29 +36,20 @@ export default function Music() {
             const trackList = musicData.recenttracks.track || [];
             const nextScrobbleCount = scrobblesData.scrobbleCount || 0;
 
-            lastStateRef.current = {
-                tracks: trackList,
-                currentTrack: null,
-                scrobbleCount: nextScrobbleCount
-            };
-
             setTracks(trackList);
             setScrobbleCount(nextScrobbleCount);
 
-            // Check if first track is now playing
             if (trackList.length > 0 && trackList[0]["@attr"]?.nowplaying === "true") {
                 const playingTrack = {
                     ...trackList[0],
                     isPlaying: true
                 };
-                lastStateRef.current.currentTrack = playingTrack;
                 setCurrentTrack(playingTrack);
             } else if (currentTrack && currentTrack.isPlaying) {
                 const pausedTrack = {
                     ...currentTrack,
                     isPlaying: false
                 };
-                lastStateRef.current.currentTrack = pausedTrack;
                 setCurrentTrack(pausedTrack);
             } else if (currentTrack && !currentTrack.isPlaying) {
                 const isPausedTrackInHistory = trackList.some(
@@ -64,7 +58,6 @@ export default function Music() {
                 );
 
                 if (isPausedTrackInHistory) {
-                    lastStateRef.current.currentTrack = null;
                     setCurrentTrack(null);
                 }
             }
@@ -77,6 +70,20 @@ export default function Music() {
 
     useLiveUpdate(fetchMusicData, 20000);
 
+    useEffect(() => {
+        async function loadFavorites() {
+            try {
+                const response = await fetch("/api/favorites");
+                const data = await response.json();
+                setFavoriteTracks(data.favorites || []);
+            } catch (error) {
+                console.error("Error loading favorites:", error);
+            }
+        }
+
+        loadFavorites();
+    }, []);
+
     const visibleTracks = useMemo(() => {
         if (!currentTrack || currentTrack.isPlaying) return tracks;
 
@@ -87,6 +94,73 @@ export default function Music() {
             return true;
         });
     }, [tracks, currentTrack]);
+
+    const canEditFavorites = () => {
+        if (typeof window === "undefined") return false;
+
+        const stored = window.localStorage.getItem(FAVORITE_STORAGE_KEY);
+        if (stored === "true") return true;
+
+        const entered = window.prompt("Enter the favorite songs admin key");
+        if (entered === ADMIN_KEY) {
+            window.localStorage.setItem(FAVORITE_STORAGE_KEY, "true");
+            return true;
+        }
+
+        window.alert("Only the owner can edit favorite songs.");
+        return false;
+    };
+
+    const toggleFavorite = async (track) => {
+        if (!track) return;
+
+        if (!canEditFavorites()) return;
+
+        const normalizedTrack = {
+            name: track.name,
+            artist: track.artist?.["#text"] || track.artist,
+            url: getTrackUrl(track),
+            image: track.image?.[2]?.["#text"] || ""
+        };
+
+        const alreadySaved = favoriteTracks.some(savedTrack =>
+            savedTrack.name === normalizedTrack.name &&
+            savedTrack.artist === normalizedTrack.artist
+        );
+
+        const nextFavorites = alreadySaved
+            ? favoriteTracks.filter(savedTrack =>
+                savedTrack.name !== normalizedTrack.name ||
+                savedTrack.artist !== normalizedTrack.artist
+            )
+            : [...favoriteTracks, normalizedTrack];
+
+        try {
+            const response = await fetch("/api/favorites", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ tracks: nextFavorites, password: ADMIN_KEY })
+            });
+
+            const data = await response.json();
+            if (!response.ok) {
+                throw new Error(data.error || "Unable to update favorites");
+            }
+
+            setFavoriteTracks(data.favorites || []);
+        } catch (error) {
+            console.error("Error updating favorites:", error);
+            window.alert("Unable to update favorites right now.");
+        }
+    };
+
+    const isFavoriteTrack = (track) => {
+        if (!favoriteTracks.length) return false;
+        return favoriteTracks.some(savedTrack =>
+            savedTrack.name === track.name &&
+            savedTrack.artist === (track.artist?.["#text"] || track.artist)
+        );
+    };
 
     return (
 
@@ -106,43 +180,44 @@ export default function Music() {
                 </p>
             </div>
 
-
             <div className="music-grid">
 
                 {currentTrack && !currentTrack.isPlaying && (
-                    <a
-                        className="music-card is-paused"
-                        key="current"
-                        href={getTrackUrl(currentTrack)}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
+                    <div className="music-card-wrapper" key="current">
+                        <button
+                            className={`favorite-toggle ${isFavoriteTrack(currentTrack) ? "active" : ""}`}
+                            onClick={(event) => {
+                                event.preventDefault();
+                                event.stopPropagation();
+                                toggleFavorite(currentTrack);
+                            }}
+                            aria-label={`Favorite ${currentTrack.name}`}
+                        >
+                            ★
+                        </button>
 
-                        <div className="now-playing-indicator">
-                            <span className="pulse"></span>
-                            PAUSED
-                        </div>
+                        <a
+                            className="music-card is-paused"
+                            href={getTrackUrl(currentTrack)}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <div className="now-playing-indicator">
+                                <span className="pulse"></span>
+                                PAUSED
+                            </div>
 
-                        <img
-                            src={
-                                currentTrack.image[2]["#text"]
-                            }
-                            alt="album cover"
-                        />
+                            <img
+                                src={currentTrack.image[2]["#text"]}
+                                alt="album cover"
+                            />
 
-                        <div className="music-info">
-
-                            <h3>
-                                {currentTrack.name}
-                            </h3>
-
-                            <p>
-                                {currentTrack.artist["#text"]}
-                            </p>
-
-                        </div>
-
-                    </a>
+                            <div className="music-info">
+                                <h3>{currentTrack.name}</h3>
+                                <p>{currentTrack.artist["#text"]}</p>
+                            </div>
+                        </a>
+                    </div>
                 )}
 
                 {visibleTracks.map((track, index) => {
@@ -150,46 +225,77 @@ export default function Music() {
 
                     return (
 
-                    <a
-                        className={`music-card ${isNowPlaying ? "now-playing is-playing" : ""}`}
-                        key={index}
-                        href={getTrackUrl(track)}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
+                    <div className="music-card-wrapper" key={index}>
+                        <button
+                            className={`favorite-toggle ${isFavoriteTrack(track) ? "active" : ""}`}
+                            onClick={(event) => {
+                                event.preventDefault();
+                                event.stopPropagation();
+                                toggleFavorite(track);
+                            }}
+                            aria-label={`Favorite ${track.name}`}
+                        >
+                            ★
+                        </button>
 
-                        {isNowPlaying && (
-                            <div className="now-playing-indicator">
-                                <span className="pulse active"></span>
-                                PLAYING
+                        <a
+                            className={`music-card ${isNowPlaying ? "now-playing is-playing" : ""}`}
+                            href={getTrackUrl(track)}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            {isNowPlaying && (
+                                <div className="now-playing-indicator">
+                                    <span className="pulse active"></span>
+                                    PLAYING
+                                </div>
+                            )}
+
+                            <img
+                                src={track.image[2]["#text"]}
+                                alt="album cover"
+                            />
+
+                            <div className="music-info">
+                                <h3>{track.name}</h3>
+                                <p>{track.artist["#text"]}</p>
                             </div>
-                        )}
-
-                        <img
-                            src={
-                                track.image[2]["#text"]
-                            }
-                            alt="album cover"
-                        />
-
-                        <div className="music-info">
-
-                            <h3>
-                                {track.name}
-                            </h3>
-
-                            <p>
-                                {track.artist["#text"]}
-                            </p>
-
-                        </div>
-
-                    </a>
+                        </a>
+                    </div>
 
                     );
 
                 })}
 
+            </div>
+
+            <div className="favorite-songs">
+                <div className="favorite-songs__header">
+                    <h2>FAVORITE SONGS</h2>
+                    <span>{favoriteTracks.length ? `${favoriteTracks.length} saved` : "none yet"}</span>
+                </div>
+
+                {favoriteTracks.length ? (
+                    <div className="favorite-songs__list">
+                        {favoriteTracks.map((track) => (
+                            <a
+                                key={`${track.name}-${track.artist}`}
+                                className="favorite-songs__card"
+                                href={track.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                {track.image && <img src={track.image} alt="favorite album cover" />}
+                                <div>
+                                    <h3>{track.name}</h3>
+                                    <p>{track.artist}</p>
+                                </div>
+                            </a>
+                        ))}
+                    </div>
+                ) : (
+                    <p className="favorite-songs__empty">Tap the star on any track to add it here.</p>
+                )}
             </div>
 
         </div>

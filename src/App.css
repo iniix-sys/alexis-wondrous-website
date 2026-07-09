@@ -617,6 +617,23 @@ footer{
         padding:18px;
     }
 
+    .favorite-songs {
+        padding:14px;
+    }
+
+    .favorite-songs__header {
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .favorite-songs__list {
+        grid-template-columns:1fr;
+    }
+
+    .favorite-songs__card {
+        align-items:flex-start;
+    }
+
     .page-area{
         padding:12px;
     }
@@ -1217,6 +1234,75 @@ body {
 
 }
 
+.favorite-songs {
+    max-width:1100px;
+    margin:24px auto 0;
+    padding:16px 18px;
+    border-radius:18px;
+    background:rgba(10,20,40,.44);
+    border:1px solid rgba(255,255,255,.2);
+    box-shadow:0 12px 28px rgba(0,0,0,.18);
+}
+
+.favorite-songs__header {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    margin-bottom:12px;
+}
+
+.favorite-songs__header h2 {
+    font-size:1rem;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    font-family:monospace;
+}
+
+.favorite-songs__header span {
+    font-size:.8rem;
+    font-family:monospace;
+    color:#7fe1ff;
+}
+
+.favorite-songs__list {
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+    gap:12px;
+}
+
+.favorite-songs__card {
+    display:flex;
+    align-items:center;
+    gap:12px;
+    text-decoration:none;
+    color:inherit;
+    padding:10px;
+    border-radius:14px;
+    background:rgba(255,255,255,.04);
+}
+
+.favorite-songs__card img {
+    width:54px;
+    height:54px;
+    object-fit:cover;
+    border-radius:10px;
+}
+
+.favorite-songs__card h3 {
+    font-size:1rem;
+    margin-bottom:2px;
+}
+
+.favorite-songs__card p {
+    opacity:.7;
+    font-size:.95rem;
+}
+
+.favorite-songs__empty {
+    opacity:.75;
+    font-size:.95rem;
+}
 
 /* GRID */
 
@@ -1240,6 +1326,41 @@ body {
 
 
 /* CARD */
+
+.music-card-wrapper {
+    position:relative;
+}
+
+.favorite-toggle {
+    position:absolute;
+    top:10px;
+    right:10px;
+    z-index:20;
+    border:0;
+    width:36px;
+    height:36px;
+    border-radius:999px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:rgba(5,8,20,.75);
+    color:rgba(255,255,255,.7);
+    cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.25);
+    transition:0.2s ease;
+}
+
+.favorite-toggle:hover,
+.favorite-toggle:focus-visible {
+    transform:scale(1.05);
+    color:#ffe08a;
+    outline:none;
+}
+
+.favorite-toggle.active {
+    background:rgba(255,224,138,.95);
+    color:#050814;
+}
 
 .music-card {
 
