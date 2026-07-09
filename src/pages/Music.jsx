@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useLiveUpdate } from "../hooks/useLiveUpdate";
 
 const FAVORITE_STORAGE_KEY = "alexis-favorites-admin";
-const ADMIN_KEY = import.meta.env.VITE_FAVORITES_ADMIN_KEY || "alexis-favorites-2026";
+const ADMIN_KEY = "5134";
 
 function getTrackUrl(track) {
     if (track?.url) return track.url;
