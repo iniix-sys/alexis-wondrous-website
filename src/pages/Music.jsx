@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 export default function Music() {
 
     const [tracks, setTracks] = useState([]);
+    const [scrobbleCount, setScrobbleCount] = useState(0);
 
 
     useEffect(() => {
@@ -14,6 +15,14 @@ export default function Music() {
                 setTracks(
                     data.recenttracks.track
                 );
+
+            });
+
+        fetch("/api/scrobbles")
+            .then(res => res.json())
+            .then(data => {
+
+                setScrobbleCount(data.scrobbleCount);
 
             });
 
@@ -32,6 +41,12 @@ export default function Music() {
             <p className="music-status">
                 AUDIO SUBSYSTEM: ONLINE
             </p>
+
+            <div className="scrobble-counter">
+                <p>
+                    SCROBBLES: <span>{scrobbleCount.toLocaleString()}</span>
+                </p>
+            </div>
 
 
             <div className="music-grid">

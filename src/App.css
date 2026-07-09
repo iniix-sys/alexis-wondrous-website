@@ -945,6 +945,38 @@ body {
 }
 
 
+.scrobble-counter {
+
+    text-align:center;
+
+    margin:20px 0 30px 0;
+
+    padding:15px;
+
+    background:rgba(0,180,255,.08);
+
+    border:1px solid rgba(0,180,255,.25);
+
+    border-radius:12px;
+
+    font-family:monospace;
+
+    font-size:1.1rem;
+
+}
+
+
+.scrobble-counter span {
+
+    color:#00b4ff;
+
+    font-weight:bold;
+
+    text-shadow:0 0 10px rgba(0,180,255,.5);
+
+}
+
+
 /* GRID */
 
 .music-grid {
