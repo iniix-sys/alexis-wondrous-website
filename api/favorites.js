@@ -11,6 +11,7 @@ const supabase = createClient(
 export default async function handler(req, res) {
 
 
+    // GET FAVORITES
     if (req.method === "GET") {
 
         try {
@@ -27,13 +28,13 @@ export default async function handler(req, res) {
                 console.error(error);
 
                 return res.status(500).json({
-                    error: "Unable to load favorites"
+                    error: error.message
                 });
             }
 
 
             return res.status(200).json({
-                favorites: data
+                favorites: data || []
             });
 
 
@@ -42,7 +43,7 @@ export default async function handler(req, res) {
             console.error(error);
 
             return res.status(500).json({
-                error: "Unable to load favorites"
+                error: error.message
             });
 
         }
@@ -51,6 +52,7 @@ export default async function handler(req, res) {
 
 
 
+    // SAVE FAVORITES
     if (req.method === "POST") {
 
         try {
@@ -62,7 +64,7 @@ export default async function handler(req, res) {
 
 
 
-            if (!password || password !== process.env.FAVORITES_ADMIN_KEY) {
+            if (password !== process.env.FAVORITES_ADMIN_KEY) {
 
                 return res.status(403).json({
                     error: "Only the owner can edit favorite songs"
@@ -72,10 +74,21 @@ export default async function handler(req, res) {
 
 
 
+            if (!Array.isArray(tracks)) {
+
+                return res.status(400).json({
+                    error: "Invalid favorites list"
+                });
+
+            }
+
+
+
+            // Remove old favorites
             const { error: deleteError } = await supabase
                 .from("favorites")
                 .delete()
-                .neq("id", 0);
+                .not("name", "is", null);
 
 
 
@@ -84,56 +97,48 @@ export default async function handler(req, res) {
                 console.error(deleteError);
 
                 return res.status(500).json({
-                    error: "Unable to clear favorites"
+                    error: deleteError.message
                 });
 
             }
 
 
 
-            if (Array.isArray(tracks) && tracks.length > 0) {
+            // Add new favorites
+            if (tracks.length > 0) {
 
-
-                const { data, error } = await supabase
+                const { error: insertError } = await supabase
                     .from("favorites")
-                    .insert(tracks)
-                    .select();
+                    .insert(tracks);
 
 
 
-                if (error) {
+                if (insertError) {
 
-                    console.error(error);
+                    console.error(insertError);
 
                     return res.status(500).json({
-                        error: "Unable to save favorites"
+                        error: insertError.message
                     });
 
                 }
-
-
-
-                return res.status(200).json({
-                    favorites: data
-                });
-
 
             }
 
 
 
             return res.status(200).json({
-                favorites: []
+                favorites: tracks
             });
 
 
 
-        } catch (error) {
+        } catch(error) {
 
             console.error(error);
 
             return res.status(500).json({
-                error: "Unable to save favorites"
+                error:error.message
             });
 
         }
@@ -143,7 +148,7 @@ export default async function handler(req, res) {
 
 
     return res.status(405).json({
-        error: "Method not allowed"
+        error:"Method not allowed"
     });
 
 }
