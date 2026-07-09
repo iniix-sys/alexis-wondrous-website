@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
+import { useLiveUpdate } from "../hooks/useLiveUpdate";
 
 export default function Guestbook() {
 
@@ -16,9 +17,7 @@ export default function Guestbook() {
         setNames(data || []);
     }
 
-    useEffect(() => {
-        loadNames();
-    }, []);
+    useLiveUpdate(loadNames, 8000);
 
     async function addName() {
 

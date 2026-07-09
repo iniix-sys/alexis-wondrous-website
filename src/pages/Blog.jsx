@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
+import { useLiveUpdate } from "../hooks/useLiveUpdate";
 
 export default function Blog() {
 
@@ -23,9 +24,26 @@ export default function Blog() {
         setThreads(data || []);
     }
 
+    async function loadReplies() {
+
+        if (!activeThread) return;
+
+        const { data } = await supabase
+            .from("replies")
+            .select("*")
+            .eq("thread_id", activeThread.id)
+            .order("id", { ascending: true });
+
+        setReplies(data || []);
+    }
+
+    useLiveUpdate(loadThreads, 8000);
+
     useEffect(() => {
-        loadThreads();
-    }, []);
+        loadReplies();
+        const repliesInterval = setInterval(loadReplies, 8000);
+        return () => clearInterval(repliesInterval);
+    }, [activeThread]);
 
     async function createThread() {
 
@@ -50,13 +68,6 @@ export default function Blog() {
 
         setActiveThread(thread);
 
-        const { data } = await supabase
-            .from("replies")
-            .select("*")
-            .eq("thread_id", thread.id)
-            .order("id", { ascending: true });
-
-        setReplies(data || []);
     }
 
     async function addReply() {

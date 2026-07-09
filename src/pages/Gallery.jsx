@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
+import { useLiveUpdate } from "../hooks/useLiveUpdate";
 
 export default function Gallery() {
 
@@ -17,9 +18,7 @@ export default function Gallery() {
         }
     }
 
-    useEffect(() => {
-        loadImages();
-    }, []);
+    useLiveUpdate(loadImages, 8000);
 
     return (
         <div className="gallery-page">

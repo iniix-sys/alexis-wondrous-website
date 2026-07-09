@@ -1,32 +1,32 @@
 import { useEffect, useState } from "react";
+import { useLiveUpdate } from "../hooks/useLiveUpdate";
 
 export default function Music() {
 
     const [tracks, setTracks] = useState([]);
     const [scrobbleCount, setScrobbleCount] = useState(0);
 
+    const fetchMusicData = async () => {
 
-    useEffect(() => {
+        try {
+            const [musicRes, scrobblesRes] = await Promise.all([
+                fetch("/api/music"),
+                fetch("/api/scrobbles")
+            ]);
 
-        fetch("/api/music")
-            .then(res => res.json())
-            .then(data => {
+            const musicData = await musicRes.json();
+            const scrobblesData = await scrobblesRes.json();
 
-                setTracks(
-                    data.recenttracks.track
-                );
+            setTracks(musicData.recenttracks.track);
+            setScrobbleCount(scrobblesData.scrobbleCount);
 
-            });
+        } catch (error) {
+            console.error("Error fetching music data:", error);
+        }
 
-        fetch("/api/scrobbles")
-            .then(res => res.json())
-            .then(data => {
+    };
 
-                setScrobbleCount(data.scrobbleCount);
-
-            });
-
-    }, []);
+    useLiveUpdate(fetchMusicData, 15000);
 
 
 
