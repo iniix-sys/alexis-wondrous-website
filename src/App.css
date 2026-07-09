@@ -1105,6 +1105,20 @@ body {
 }
 
 
+.music-card.is-paused {
+
+    border-color:rgba(100,130,160,.5);
+
+    box-shadow:
+        0 0 20px rgba(100,130,160,.08);
+
+    background:rgba(10,20,40,.6);
+
+    opacity:0.85;
+
+}
+
+
 .now-playing-indicator {
 
     position:absolute;
@@ -1140,6 +1154,15 @@ body {
 }
 
 
+.music-card.is-paused .now-playing-indicator {
+
+    background:rgba(100,130,160,.8);
+
+    color:#d7e7ff;
+
+}
+
+
 .now-playing-indicator .pulse {
 
     display:inline-block;
@@ -1151,6 +1174,11 @@ body {
     background:#050814;
 
     border-radius:50%;
+
+}
+
+
+.now-playing-indicator .pulse.active {
 
     animation:pulse 1s infinite;
 
