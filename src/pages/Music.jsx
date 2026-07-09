@@ -51,12 +51,23 @@ export default function Music() {
 
             <div className="music-grid">
 
-                {tracks.map((track, index) => (
+                {tracks.map((track, index) => {
+
+                    const isNowPlaying = track["@attr"]?.nowplaying === "true";
+
+                    return (
 
                     <div
-                        className="music-card"
+                        className={`music-card ${isNowPlaying ? "now-playing" : ""}`}
                         key={index}
                     >
+
+                        {isNowPlaying && (
+                            <div className="now-playing-indicator">
+                                <span className="pulse"></span>
+                                NOW PLAYING
+                            </div>
+                        )}
 
                         <img
                             src={
@@ -81,7 +92,9 @@ export default function Music() {
 
                     </div>
 
-                ))}
+                    );
+
+                })}
 
             </div>
 
