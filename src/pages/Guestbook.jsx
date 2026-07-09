@@ -17,7 +17,7 @@ export default function Guestbook() {
         setNames(data || []);
     }
 
-    useLiveUpdate(loadNames, 8000);
+    useLiveUpdate(loadNames, 15000);
 
     async function addName() {
 

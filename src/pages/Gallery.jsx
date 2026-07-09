@@ -18,7 +18,7 @@ export default function Gallery() {
         }
     }
 
-    useLiveUpdate(loadImages, 8000);
+    useLiveUpdate(loadImages, 15000);
 
     return (
         <div className="gallery-page">

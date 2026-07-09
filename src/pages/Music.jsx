@@ -55,7 +55,7 @@ export default function Music() {
 
     };
 
-    useLiveUpdate(fetchMusicData, 15000);
+    useLiveUpdate(fetchMusicData, 20000);
 
 
 

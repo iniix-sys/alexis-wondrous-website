@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 /**
  * Custom hook for live polling of data
@@ -7,19 +7,35 @@ import { useEffect } from "react";
  */
 export function useLiveUpdate(fetchFn, interval = 10000) {
 
+    const latestFetchRef = useRef(fetchFn);
+
     useEffect(() => {
+        latestFetchRef.current = fetchFn;
+    }, [fetchFn]);
 
-        // Call immediately on mount
-        fetchFn();
+    useEffect(() => {
+        let active = true;
+        let timeoutId;
 
-        // Set up polling interval
-        const timer = setInterval(() => {
-            fetchFn();
-        }, interval);
+        const run = async () => {
+            if (!active) return;
 
-        // Cleanup on unmount
-        return () => clearInterval(timer);
+            try {
+                await latestFetchRef.current();
+            } catch (error) {
+                console.error("Live update failed:", error);
+            }
 
-    }, [fetchFn, interval]);
+            if (!active) return;
+            timeoutId = setTimeout(run, interval);
+        };
+
+        run();
+
+        return () => {
+            active = false;
+            if (timeoutId) clearTimeout(timeoutId);
+        };
+    }, [interval]);
 
 }

@@ -37,7 +37,7 @@ export default function Blog() {
         setReplies(data || []);
     }
 
-    useLiveUpdate(loadThreads, 8000);
+    useLiveUpdate(loadThreads, 15000);
 
     useEffect(() => {
         loadReplies();
