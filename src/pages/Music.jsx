@@ -24,16 +24,29 @@ export default function Music() {
 
             // Check if first track is now playing
             if (trackList.length > 0 && trackList[0]["@attr"]?.nowplaying === "true") {
+                // Currently playing - update cache
                 setCurrentTrack({
                     ...trackList[0],
                     isPlaying: true
                 });
-            } else if (currentTrack) {
-                // Music was paused, keep showing current track but mark as paused
+            } else if (currentTrack && currentTrack.isPlaying) {
+                // Was playing, now paused - update cache
                 setCurrentTrack({
                     ...currentTrack,
                     isPlaying: false
                 });
+            } else if (currentTrack && !currentTrack.isPlaying) {
+                // Check if paused track is still in history
+                const isPausedTrackInHistory = trackList.some(
+                    track => track.name === currentTrack.name && 
+                    track.artist["#text"] === currentTrack.artist["#text"]
+                );
+                
+                // If paused track still not in history, keep showing it paused
+                // Once it gets scrobbled (appears in history), clear cache
+                if (isPausedTrackInHistory) {
+                    setCurrentTrack(null);
+                }
             }
 
         } catch (error) {
@@ -111,10 +124,10 @@ export default function Music() {
 
                 {tracks.map((track, index) => {
 
-                    const isNowPlaying = track["@attr"]?.nowplaying === "true";
-                    
-                    // Skip if this is the current track (already shown above)
-                    if (currentTrack && track.name === currentTrack.name && track.artist["#text"] === currentTrack.artist["#text"]) {
+                    // Skip the current paused track from regular list to avoid duplication
+                    if (currentTrack && !currentTrack.isPlaying && 
+                        track.name === currentTrack.name && 
+                        track.artist["#text"] === currentTrack.artist["#text"]) {
                         return null;
                     }
 
