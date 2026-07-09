@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { useLiveUpdate } from "../hooks/useLiveUpdate";
 
 function getTrackUrl(track) {
@@ -17,6 +17,7 @@ export default function Music() {
     const [tracks, setTracks] = useState([]);
     const [scrobbleCount, setScrobbleCount] = useState(0);
     const [currentTrack, setCurrentTrack] = useState(null);
+    const lastStateRef = useRef({ tracks: [], currentTrack: null, scrobbleCount: 0 });
 
     const fetchMusicData = async () => {
 
@@ -29,33 +30,41 @@ export default function Music() {
             const musicData = await musicRes.json();
             const scrobblesData = await scrobblesRes.json();
 
-            const trackList = musicData.recenttracks.track;
+            const trackList = musicData.recenttracks.track || [];
+            const nextScrobbleCount = scrobblesData.scrobbleCount || 0;
+
+            lastStateRef.current = {
+                tracks: trackList,
+                currentTrack: null,
+                scrobbleCount: nextScrobbleCount
+            };
+
             setTracks(trackList);
-            setScrobbleCount(scrobblesData.scrobbleCount);
+            setScrobbleCount(nextScrobbleCount);
 
             // Check if first track is now playing
             if (trackList.length > 0 && trackList[0]["@attr"]?.nowplaying === "true") {
-                // Currently playing - update cache
-                setCurrentTrack({
+                const playingTrack = {
                     ...trackList[0],
                     isPlaying: true
-                });
+                };
+                lastStateRef.current.currentTrack = playingTrack;
+                setCurrentTrack(playingTrack);
             } else if (currentTrack && currentTrack.isPlaying) {
-                // Was playing, now paused - update cache
-                setCurrentTrack({
+                const pausedTrack = {
                     ...currentTrack,
                     isPlaying: false
-                });
+                };
+                lastStateRef.current.currentTrack = pausedTrack;
+                setCurrentTrack(pausedTrack);
             } else if (currentTrack && !currentTrack.isPlaying) {
-                // Check if paused track is still in history
                 const isPausedTrackInHistory = trackList.some(
-                    track => track.name === currentTrack.name && 
+                    track => track.name === currentTrack.name &&
                     track.artist["#text"] === currentTrack.artist["#text"]
                 );
-                
-                // If paused track still not in history, keep showing it paused
-                // Once it gets scrobbled (appears in history), clear cache
+
                 if (isPausedTrackInHistory) {
+                    lastStateRef.current.currentTrack = null;
                     setCurrentTrack(null);
                 }
             }
@@ -68,7 +77,16 @@ export default function Music() {
 
     useLiveUpdate(fetchMusicData, 20000);
 
+    const visibleTracks = useMemo(() => {
+        if (!currentTrack || currentTrack.isPlaying) return tracks;
 
+        return tracks.filter(track => {
+            if (track.name === currentTrack.name && track.artist["#text"] === currentTrack.artist["#text"]) {
+                return false;
+            }
+            return true;
+        });
+    }, [tracks, currentTrack]);
 
     return (
 
@@ -127,15 +145,7 @@ export default function Music() {
                     </a>
                 )}
 
-                {tracks.map((track, index) => {
-
-                    // Skip the current paused track from regular list to avoid duplication
-                    if (currentTrack && !currentTrack.isPlaying && 
-                        track.name === currentTrack.name && 
-                        track.artist["#text"] === currentTrack.artist["#text"]) {
-                        return null;
-                    }
-
+                {visibleTracks.map((track, index) => {
                     const isNowPlaying = track["@attr"]?.nowplaying === "true";
 
                     return (
