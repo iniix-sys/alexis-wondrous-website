@@ -54,21 +54,18 @@ export default function Music() {
                 {tracks.map((track, index) => {
 
                     const isNowPlaying = track["@attr"]?.nowplaying === "true";
-                    const isFirstTrack = index === 0;
-                    const showIndicator = isFirstTrack;
-                    const status = isNowPlaying ? "PLAYING" : "PAUSED";
 
                     return (
 
                     <div
-                        className={`music-card ${showIndicator ? "now-playing" : ""} ${isNowPlaying ? "is-playing" : "is-paused"}`}
+                        className={`music-card ${isNowPlaying ? "now-playing is-playing" : ""}`}
                         key={index}
                     >
 
-                        {showIndicator && (
+                        {isNowPlaying && (
                             <div className="now-playing-indicator">
-                                <span className={`pulse ${isNowPlaying ? "active" : ""}`}></span>
-                                {status}
+                                <span className="pulse active"></span>
+                                PLAYING
                             </div>
                         )}
 

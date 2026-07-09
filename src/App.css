@@ -1140,13 +1140,6 @@ body {
 }
 
 
-.music-card.is-paused .now-playing-indicator {
-
-    background:rgba(100,130,160,.8);
-
-}
-
-
 .now-playing-indicator .pulse {
 
     display:inline-block;
@@ -1158,11 +1151,6 @@ body {
     background:#050814;
 
     border-radius:50%;
-
-}
-
-
-.now-playing-indicator .pulse.active {
 
     animation:pulse 1s infinite;
 
