@@ -5,7 +5,8 @@ import Home from "./pages/Home";
 import Blog from "./pages/Blog";
 import Gallery from "./pages/Gallery";
 import Guestbook from "./pages/Guestbook";
-
+import Stories from "./pages/Stories";
+import Story from "./pages/Story";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import Loader from "./components/Loader";
@@ -47,6 +48,8 @@ export default function App() {
                         <Route path="/guestbook" element={<Guestbook />} />
                         <Route path="/music" element={<Music />} />
                         <Route path="/sites" element={<Links />} />
+                        <Route path="/stories" element={<Stories />} />
+                        <Route path="/stories/:slug" element={<Story />} />
 
                     </Routes>
 

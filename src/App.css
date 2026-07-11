@@ -1642,3 +1642,85 @@ body {
     margin-bottom:10px;
 
 }
+.story-reader{
+
+    width:100%;
+
+    display:flex;
+
+    justify-content:center;
+
+}
+
+
+.story-box{
+
+    width:90%;
+
+    max-width:900px;
+
+    padding:30px;
+
+}
+
+
+
+.story-content{
+
+    line-height:1.8;
+
+    font-size:1.05rem;
+
+}
+
+
+
+.story-content p{
+
+    margin-bottom:20px;
+
+}
+
+
+
+.story-content h1,
+.story-content h2,
+.story-content h3{
+
+    margin-top:30px;
+
+    margin-bottom:15px;
+
+}
+
+
+
+.story-content blockquote{
+
+    border-left:3px solid white;
+
+    padding-left:20px;
+
+    opacity:.8;
+
+}
+
+
+
+.story-controls{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    margin-top:30px;
+
+}
+
+
+
+.story-controls button{
+
+    padding:10px 20px;
+
+}
