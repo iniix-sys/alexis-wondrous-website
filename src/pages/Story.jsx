@@ -1,113 +1,59 @@
-import {
-    useEffect,
-    useState
-} from "react";
-
-import {
-    useParams
-} from "react-router-dom";
-
-import {
-    supabase
-} from "../lib/supabase";
-
-import ReactMarkdown from "react-markdown";
-
-import remarkBreaks from "remark-breaks";
-
-import splitStory from "../utils/splitStory";
-
-
+import { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import { supabase } from "../lib/supabase";
 
 export default function Story(){
 
+    const { storySlug } = useParams();
 
-    const {
-        slug
-    } = useParams();
-
-
-
-    const [story,setStory] = useState(null);
-
-    const [pages,setPages] = useState([]);
-
-    const [page,setPage] = useState(0);
+    const [story, setStory] = useState(null);
+    const [chapters, setChapters] = useState([]);
 
 
-
-    useEffect(()=>{
-
+    useEffect(() => {
 
         async function loadStory(){
 
-
-            const {
-                data,
-                error
-            } = await supabase
+            const { data: storyData } = await supabase
 
                 .from("stories")
 
                 .select("*")
 
-                .eq(
-                    "slug",
-                    slug
-                )
+                .eq("slug", storySlug)
 
                 .single();
 
 
-
-            if(error){
-
-                console.error(
-                    "Story error:",
-                    error
-                );
-
+            if(!storyData)
                 return;
 
-            }
+
+            setStory(storyData);
 
 
+            const { data: chapterData } = await supabase
 
-            console.log(
-                "Loaded story:",
-                data
-            );
+                .from("chapters")
+
+                .select("*")
+
+                .eq("story_id", storyData.id)
+
+                .order(
+                    "chapter_number",
+                    { ascending: true }
+                );
 
 
-
-            setStory(data);
-
-
-
-            setPages(
-
-                splitStory(
-                    data.markdown,
-                    900
-                )
-
-            );
-
+            setChapters(chapterData || []);
 
         }
 
 
+        loadStory();
 
-        if(slug){
-
-            loadStory();
-
-        }
-
-
-    },[slug]);
-
-
+    }, [storySlug]);
 
 
     if(!story){
@@ -116,7 +62,7 @@ export default function Story(){
 
             <div className="glass">
 
-                Loading story...
+                Loading...
 
             </div>
 
@@ -125,120 +71,43 @@ export default function Story(){
     }
 
 
-
-
     return (
 
-        <div className="story-reader">
+        <div className="story-page">
 
+            <div className="glass">
 
-            <div className="glass story-box">
+                <h1>{story.title}</h1>
 
+                <p>{story.description}</p>
 
-                <h1>
+                <br/>
 
-                    {story.title}
+                <h2>Contents</h2>
 
-                </h1>
+                <div className="chapter-list">
 
+                    {chapters.map(chapter => (
 
+                        <Link
 
-                <p className="story-page-number">
+                            key={chapter.id}
 
-                    PAGE {page + 1}
-                    {" / "}
-                    {pages.length}
+                            to={`/stories/${story.slug}/${chapter.slug}`}
 
-                </p>
+                            className="chapter-button"
 
+                        >
 
+                            {chapter.title}
 
+                        </Link>
 
-                <article className="story-content">
-
-
-                    <ReactMarkdown
-
-                        remarkPlugins={[
-                            remarkBreaks
-                        ]}
-
-                    >
-
-                        {pages[page]}
-
-                    </ReactMarkdown>
-
-
-                </article>
-
-
-
-
-
-                <div className="story-controls">
-
-
-                    <button
-
-                        disabled={
-                            page === 0
-                        }
-
-                        onClick={()=>{
-
-                            setPage(
-                                page - 1
-                            );
-
-                            window.scrollTo(
-                                0,
-                                0
-                            );
-
-                        }}
-
-                    >
-
-                        ← Previous
-
-                    </button>
-
-
-
-
-
-                    <button
-
-                        disabled={
-                            page === pages.length - 1
-                        }
-
-                        onClick={()=>{
-
-                            setPage(
-                                page + 1
-                            );
-
-                            window.scrollTo(
-                                0,
-                                0
-                            );
-
-                        }}
-
-                    >
-
-                        Next →
-
-                    </button>
-
+                    ))}
 
                 </div>
 
-
             </div>
-
 
         </div>
 

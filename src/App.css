@@ -1667,9 +1667,17 @@ body {
 
 .story-content{
 
-    line-height:1.8;
+    font-size:1.1rem;
 
-    font-size:1.05rem;
+    line-height:2;
+
+    letter-spacing:.02em;
+
+    max-width:750px;
+
+    margin:40px auto;
+
+    color:#dfe8ff;
 
 }
 
@@ -1722,5 +1730,79 @@ body {
 .story-controls button{
 
     padding:10px 20px;
+
+}
+.chapter-list{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:15px;
+
+    margin-top:25px;
+
+}
+
+
+.chapter-button{
+
+    display:block;
+
+    padding:18px;
+
+    text-decoration:none;
+
+    color:white;
+
+    border:1px solid rgba(255,255,255,.25);
+
+    background:rgba(255,255,255,.05);
+
+    transition:.2s;
+
+}
+
+
+.chapter-button:hover{
+
+    background:rgba(255,255,255,.12);
+
+    transform:translateX(8px);
+
+}
+.chapter-navigation{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-top:40px;
+
+    padding-top:20px;
+
+    border-top:1px solid rgba(255,255,255,.15);
+
+}
+
+
+.chapter-navigation a{
+
+    color:white;
+
+    text-decoration:none;
+
+    padding:10px 16px;
+
+    transition:.2s;
+
+}
+
+
+.chapter-navigation a:hover{
+
+    background:rgba(255,255,255,.08);
 
 }

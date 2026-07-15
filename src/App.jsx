@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
-
+import Chapter from "./pages/Chapter";
 import Home from "./pages/Home";
 import Blog from "./pages/Blog";
 import Gallery from "./pages/Gallery";
@@ -49,7 +49,12 @@ export default function App() {
                         <Route path="/music" element={<Music />} />
                         <Route path="/sites" element={<Links />} />
                         <Route path="/stories" element={<Stories />} />
-                        <Route path="/stories/:slug" element={<Story />} />
+                        <Route path="/stories/:storySlug" element={<Story />} />
+
+                        <Route
+                            path="/stories/:storySlug/:chapterSlug"
+                            element={<Chapter />}
+                        />
 
                     </Routes>
 
