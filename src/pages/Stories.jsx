@@ -78,6 +78,8 @@ export default function Stories() {
                                         src={story.cover}
                                         alt={story.title}
                                         className="story-cover"
+                                        loading="lazy"
+                                        decoding="async"
                                     />
 
                                 )

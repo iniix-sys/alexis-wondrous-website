@@ -62,7 +62,7 @@ export default function Gallery() {
                         }}
                     >
 
-                        <img src={img.url} alt="gallery" />
+                        <img src={img.url} alt="gallery" loading="lazy" decoding="async" />
 
                     </div>
                 ))}

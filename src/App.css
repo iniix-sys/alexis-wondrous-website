@@ -8,6 +8,7 @@
     src:url("/src/assets/fanky_bubble_graffiti/FankyBubbleGraffiti-Regular.otf") format("opentype");
     font-weight:normal;
     font-style:normal;
+    font-display:swap;
 }
 
 @font-face{
@@ -15,6 +16,7 @@
     src:url("/src/assets/fanky_bubble_graffiti/FankyBubbleGraffiti-Extrude.otf") format("opentype");
     font-weight:bold;
     font-style:normal;
+    font-display:swap;
 }
 
 /* =========================

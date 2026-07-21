@@ -15,15 +15,15 @@ export default function Loader({ onFinish }) {
 
                     setTimeout(() => {
                         onFinish();
-                    }, 500);
+                    }, 120);
 
                     return 100;
                 }
 
-                return prev + 2;
+                return prev + 10;
             });
 
-        }, 40);
+        }, 25);
 
         return () => clearInterval(interval);
 

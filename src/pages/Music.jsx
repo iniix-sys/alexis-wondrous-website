@@ -210,6 +210,8 @@ export default function Music() {
                             <img
                                 src={currentTrack.image[2]["#text"]}
                                 alt="album cover"
+                                loading="lazy"
+                                decoding="async"
                             />
 
                             <div className="music-info">
@@ -254,6 +256,8 @@ export default function Music() {
                             <img
                                 src={track.image[2]["#text"]}
                                 alt="album cover"
+                                loading="lazy"
+                                decoding="async"
                             />
 
                             <div className="music-info">
@@ -285,7 +289,7 @@ export default function Music() {
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >
-                                {track.image && <img src={track.image} alt="favorite album cover" />}
+                                {track.image && <img src={track.image} alt="favorite album cover" loading="lazy" decoding="async" />}
                                 <div>
                                     <h3>{track.name}</h3>
                                     <p>{track.artist}</p>
