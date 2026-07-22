@@ -71,6 +71,36 @@ export default function Stories() {
                         >
 
 
+                            <div className="story-info">
+
+                                <h2>
+                                    {story.title}
+                                </h2>
+
+
+
+                                <p className="story-genre">
+                                    {story.genre}
+                                </p>
+
+
+
+                                <p>
+                                    {story.description}
+                                </p>
+
+
+
+                               <Link to={`/stories/${story.slug}`}>
+                                    <button>
+                                        Read Story
+                                    </button>
+                                </Link>
+
+                            </div>
+
+
+
                             {
                                 story.cover && (
 
@@ -84,33 +114,6 @@ export default function Stories() {
 
                                 )
                             }
-
-
-
-                            <h2>
-                                {story.title}
-                            </h2>
-
-
-
-                            <p className="story-genre">
-                                {story.genre}
-                            </p>
-
-
-
-                            <p>
-                                {story.description}
-                            </p>
-
-
-
-                           <Link to={`/stories/${story.slug}`}>
-                                <button>
-                                    Read Story
-                                </button>
-                            </Link>
-
 
 
                         </div>
