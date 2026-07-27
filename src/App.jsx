@@ -1,12 +1,13 @@
 import { lazy, Suspense, useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import Loader from "./components/Loader";
 
 const Chapter = lazy(() => import("./pages/Chapter"));
 const Home = lazy(() => import("./pages/Home"));
-const Blog = lazy(() => import("./pages/Blog"));
+const Space = lazy(() => import("./pages/Space"));
+const SpaceProfile = lazy(() => import("./pages/SpaceProfile"));
 const Gallery = lazy(() => import("./pages/Gallery"));
 const Guestbook = lazy(() => import("./pages/Guestbook"));
 const Donations = lazy(() => import("./pages/Donations"));
@@ -52,7 +53,9 @@ export default function App() {
 
                             <Route path="/" element={<Home />} />
 
-                            <Route path="/blog" element={<Blog />} />
+                            <Route path="/blog" element={<Navigate to="/space" replace />} />
+                            <Route path="/space" element={<Space />} />
+                            <Route path="/space/:username" element={<SpaceProfile />} />
 
                             <Route path="/gallery" element={<Gallery />} />
 

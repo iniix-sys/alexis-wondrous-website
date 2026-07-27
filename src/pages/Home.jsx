@@ -10,7 +10,7 @@ export default function Home() {
 
             <div className="hero-buttons">
 
-                <a href="/blog">
+                <a href="/space">
                     <button>POST</button>
                 </a>
 

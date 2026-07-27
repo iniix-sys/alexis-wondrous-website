@@ -10,7 +10,7 @@ export default function Navbar() {
             <ul className="nav-links">
 
                 <li><Link to="/">HOME</Link></li>
-                <li><Link to="/blog">BLOG</Link></li>
+                <li><Link to="/space">THE SPACE</Link></li>
                 <li><Link to="/gallery">GALLERY</Link></li>
                 <li><Link to="/music">MUSIC HALL</Link></li>
                 <li><Link to="/guestbook">THE WALL</Link></li>
