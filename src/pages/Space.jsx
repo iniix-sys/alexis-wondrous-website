@@ -93,8 +93,8 @@ function AuthPanel({ signUp, signIn }) {
                 onChange={(e) => setPassword(e.target.value)}
             />
 
-            {error && <p className="space-auth-error">{error}</p>}
-            {notice && <p className="space-auth-notice">{notice}</p>}
+            {error && <p className="space-auth-error">⚠ {error}</p>}
+            {notice && <p className="space-auth-notice">✓ {notice}</p>}
 
             <button onClick={handleSubmit} disabled={submitting}>
                 {mode === "signup" ? "CREATE ACCOUNT" : "LOG IN"}

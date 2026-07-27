@@ -171,7 +171,7 @@ export default function Donations() {
                         onChange={(e) => setAmount(e.target.value)}
                     />
 
-                    <input
+                    <textarea
                         placeholder="message (optional)..."
                         value={message}
                         onChange={(e) => setMessage(e.target.value)}

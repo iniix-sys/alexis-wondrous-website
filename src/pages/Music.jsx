@@ -193,7 +193,7 @@ export default function Music() {
                             }}
                             aria-label={`Favorite ${currentTrack.name}`}
                         >
-                            ★
+                            {isFavoriteTrack(currentTrack) ? "★" : "☆"}
                         </button>
 
                         <a
@@ -204,7 +204,7 @@ export default function Music() {
                         >
                             <div className="now-playing-indicator">
                                 <span className="pulse"></span>
-                                PAUSED
+                                ⏸ PAUSED
                             </div>
 
                             <img
@@ -237,7 +237,7 @@ export default function Music() {
                             }}
                             aria-label={`Favorite ${track.name}`}
                         >
-                            ★
+                            {isFavoriteTrack(track) ? "★" : "☆"}
                         </button>
 
                         <a
@@ -249,7 +249,7 @@ export default function Music() {
                             {isNowPlaying && (
                                 <div className="now-playing-indicator">
                                     <span className="pulse active"></span>
-                                    PLAYING
+                                    ▶ PLAYING
                                 </div>
                             )}
 

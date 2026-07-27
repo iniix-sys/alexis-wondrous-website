@@ -368,7 +368,7 @@ export default function SpaceProfile() {
                                 value={addFriendUsername}
                                 onChange={(e) => setAddFriendUsername(e.target.value)}
                             />
-                            {friendError && <p className="space-auth-error">{friendError}</p>}
+                            {friendError && <p className="space-auth-error">⚠ {friendError}</p>}
                             <button onClick={addFriend}>ADD TO TOP 8</button>
                         </div>
                     )}
@@ -447,21 +447,21 @@ export default function SpaceProfile() {
                             <button onClick={() => setActivePost(null)}>← BACK</button>
 
                             <h2>{activePost.title}</h2>
-                            <p>{activePost.content}</p>
+                            <p className="space-post-content">{activePost.content}</p>
 
                             <hr />
 
                             <h3>REPLIES</h3>
 
                             {postComments.map((r) => (
-                                <p key={r.id}>
+                                <p key={r.id} className="space-reply-line">
                                     💬 <strong>{postCommentAuthors[r.author_id]?.username || "unknown"}:</strong> {r.content}
                                 </p>
                             ))}
 
                             {user ? (
                                 <>
-                                    <input
+                                    <textarea
                                         placeholder="Write reply..."
                                         value={postReply}
                                         onChange={(e) => setPostReply(e.target.value)}
