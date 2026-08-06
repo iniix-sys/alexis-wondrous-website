@@ -5,20 +5,18 @@ export default function Navbar() {
     return (
         <nav className="navbar">
 
-            <h1 className="logo">🌙 ALEXIS' WONDROUS WEBSITE</h1>
+            <h1 className="logo">ALEXIS' WONDROUS WEBSITE</h1>
 
             <ul className="nav-links">
 
                 <li><Link to="/">HOME</Link></li>
                 <li><Link to="/space">THE SPACE</Link></li>
+                <li><Link to="/stories">STORIES</Link></li>
                 <li><Link to="/gallery">GALLERY</Link></li>
                 <li><Link to="/music">MUSIC HALL</Link></li>
-                <li><Link to="/guestbook">THE WALL</Link></li>
                 <li><Link to="/donations">DONATORS</Link></li>
                 <li><Link to="/sites">OTHER SITES</Link></li>
-                <li><Link to="/stories">
-                    STORIES
-                </Link></li>
+                
             </ul>
 
         </nav>

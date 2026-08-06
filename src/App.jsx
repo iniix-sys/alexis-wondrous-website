@@ -9,7 +9,6 @@ const Home = lazy(() => import("./pages/Home"));
 const Space = lazy(() => import("./pages/Space"));
 const SpaceProfile = lazy(() => import("./pages/SpaceProfile"));
 const Gallery = lazy(() => import("./pages/Gallery"));
-const Guestbook = lazy(() => import("./pages/Guestbook"));
 const Donations = lazy(() => import("./pages/Donations"));
 const Stories = lazy(() => import("./pages/Stories"));
 const Story = lazy(() => import("./pages/Story"));
@@ -26,18 +25,24 @@ export default function App() {
 
     if (loading) {
         return (
-            <Loader
-                onFinish={() => {
-                    window.sessionStorage.setItem(HAS_BOOTED_KEY, "true");
-                    setLoading(false);
-                }}
-            />
+            <>
+                <div className="crt-overlay" aria-hidden="true" />
+
+                <Loader
+                    onFinish={() => {
+                        window.sessionStorage.setItem(HAS_BOOTED_KEY, "true");
+                        setLoading(false);
+                    }}
+                />
+            </>
         );
     }
 
 
     return (
         <div className="app-layout">
+
+            <div className="crt-overlay" aria-hidden="true" />
 
             <Navbar />
 
@@ -59,7 +64,6 @@ export default function App() {
 
                             <Route path="/gallery" element={<Gallery />} />
 
-                            <Route path="/guestbook" element={<Guestbook />} />
                             <Route path="/donations" element={<Donations />} />
                             <Route path="/music" element={<Music />} />
                             <Route path="/sites" element={<Links />} />

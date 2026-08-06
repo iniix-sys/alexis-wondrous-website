@@ -14,10 +14,6 @@ export default function Home() {
                     <button>POST</button>
                 </a>
 
-                <a href="/guestbook">
-                    <button>SIGN WALL</button>
-                </a>
-
             </div>
 
         </section>
